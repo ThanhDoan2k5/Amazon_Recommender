@@ -52,7 +52,7 @@ class AmazonRecommenderGUI(QWidget):
         main_layout.addLayout(input_layout)
 
         # --- NÚT BẤM ---
-        self.recommend_btn = QPushButton("🚀 Phân Tích & Gợi Ý")
+        self.recommend_btn = QPushButton("Phân Tích & Gợi Ý")
         self.recommend_btn.setCursor(Qt.PointingHandCursor)
         self.recommend_btn.clicked.connect(self.on_recommend)
         main_layout.addWidget(self.recommend_btn)
@@ -75,14 +75,14 @@ class AmazonRecommenderGUI(QWidget):
 
         top_k = int(top_k_text) if top_k_text.isdigit() else 5
 
-        self.result_area.setText("⏳ Đang quét kho dữ liệu Amazon... Vui lòng đợi trong giây lát...")
+        self.result_area.setText(" Đang quét kho dữ liệu Amazon... Vui lòng đợi trong giây lát...")
         QApplication.processEvents()
 
         try:
             recs = get_recommendations(user_id, top_k)
 
             if not recs:
-                self.result_area.setText(f"❌ Không tìm thấy lịch sử mua hàng của khách: '{user_id}'.")
+                self.result_area.setText(f"Không tìm thấy lịch sử mua hàng của khách: '{user_id}'.")
                 return
 
             if len(recs) == 1 and "Lỗi" in recs[0]["title"]:
@@ -91,13 +91,13 @@ class AmazonRecommenderGUI(QWidget):
 
             result_str = ""
             for i, item in enumerate(recs):
-                result_str += f"{i+1}. 📦 Tên mặt hàng: {item['title']}\n"
-                result_str += f"   🆔 Mã ASIN: {item['asin']}\n"
-                result_str += f"   ⭐ Điểm AI dự đoán: {item['score']:.2f} / 5.00 sao\n"
-                result_str += f"   🔗 Link Amazon: {item['link']}\n"
+                result_str += f"{i+1}.  Tên mặt hàng: {item['title']}\n"
+                result_str += f"    Mã ASIN: {item['asin']}\n"
+                result_str += f"    Điểm AI dự đoán: {item['score']:.2f} / 5.00 sao\n"
+                result_str += f"    Link Amazon: {item['link']}\n"
                 result_str += "-" * 80 + "\n"
 
             self.result_area.setText(result_str)
 
         except Exception as e:
-            self.result_area.setText(f"❌ Đã xảy ra lỗi hệ thống: {str(e)}")
+            self.result_area.setText(f" Đã xảy ra lỗi hệ thống: {str(e)}")
