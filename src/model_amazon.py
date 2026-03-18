@@ -18,7 +18,7 @@ def load_and_train():
     meta_path = os.path.join(base_dir, 'data', 'meta_Electronics.jsonl.gz') 
     review_path = os.path.join(base_dir, 'data', 'Electronics.jsonl.gz') 
 
-    print("🚀 ĐANG HUẤN LUYỆN DỮ LIỆU LỚN BẢN 2023... VUI LÒNG ĐỢI...")
+    print(" ĐANG HUẤN LUYỆN DỮ LIỆU LỚN BẢN 2023... VUI LÒNG ĐỢI...")
 
     # Đọc file Meta 1.2GB
     asin_to_info = {}
@@ -33,10 +33,9 @@ def load_and_train():
                 except:
                     continue
     except Exception as e:
-        print(f"❌ Lỗi Meta: {e}")
+        print(f" Lỗi Meta: {e}")
         return False
 
-    # Đọc file Review 6.3GB
     try:
         chunks = []
         reader = pd.read_json(review_path, lines=True, chunksize=500000) 
@@ -62,14 +61,14 @@ def load_and_train():
         print(f"   -> SỐ DÒNG KHỚP NHAU HOÀN HẢO: {len(df)} dòng")
         
         if len(df) == 0: 
-            print("❌ LỖI: Dữ liệu review không khớp với tên sản phẩm nào!")
+            print(" LỖI: Dữ liệu review không khớp với tên sản phẩm nào!")
             return False
 
     except Exception as e:
-        print(f"❌ Lỗi Review: {e}")
+        print(f" Lỗi Review: {e}")
         return False
 
-    print("⏳ Đang trích xuất đặc trưng và đưa vào mô hình học thuật toán...")
+    print(" Đang trích xuất đặc trưng và đưa vào mô hình học thuật toán...")
     
     user_stats = df.groupby('reviewerID')['overall'].agg(['mean', 'count']).reset_index()
     user_stats.columns = ['reviewerID', 'user_avg_rating', 'user_review_count']
@@ -84,19 +83,18 @@ def load_and_train():
     y = _DATASET['overall']
     
     _MODEL = LinearRegression().fit(X, y)
-    print("✅ ĐÃ HỌC XONG TOÀN BỘ. HỆ THỐNG SẴN SÀNG CHỐT ĐƠN!")
-    
-    # --- TỰ ĐỘNG TẠO 10 DANH BẠ VIP TỪ DỮ LIỆU THẬT ---
+    print(" ĐÃ HỌC XONG TOÀN BỘ. HỆ THỐNG SẴN SÀNG CHỐT ĐƠN!")
+   
     real_ids = df['reviewerID'].unique()[:10]
     ten_tieng_viet = ["Tuấn", "Lan", "Nam", "Hương", "Huy", "Trang", "Hải", "Linh", "Dũng", "Hoa"]
     
     print("\n" + "="*55)
-    print("📔 DANH BẠ 10 KHÁCH HÀNG VIP ĐỂ ĐI BÁO CÁO:")
+    print(" DANH BẠ 10 KHÁCH HÀNG VIP ĐỂ ĐI BÁO CÁO:")
     for i in range(min(len(real_ids), len(ten_tieng_viet))):
         name = ten_tieng_viet[i]
         _DANH_BA_VIP[name] = real_ids[i]
         _DANH_BA_VIP[name.lower()] = real_ids[i] # Hỗ trợ nhập chữ thường
-        print(f"   👤 Nhập '{name}' -> Hệ thống sẽ phân tích ID: {real_ids[i]}")
+        print(f"    Nhập '{name}' -> Hệ thống sẽ phân tích ID: {real_ids[i]}")
     print("="*55 + "\n")
     
     return True
@@ -107,8 +105,7 @@ def get_recommendations(target_user, top_k=5):
     if _DATASET is None or _MODEL is None: return []
 
     target_user = str(target_user).strip()
-    
-    # Tra cứu danh bạ VIP
+ 
     if target_user in _DANH_BA_VIP: 
         target_user = _DANH_BA_VIP[target_user]
 
