@@ -9,15 +9,13 @@ def main():
     print("Vui lòng không tắt cửa sổ đen này.")
     print("==================================================")
     
-    # 1. Khởi động AI (Đọc file và Train Linear Regression)
     success = load_and_train()
 
     if not success:
-        print("\n❌ Khởi động AI thất bại. Vui lòng kiểm tra lại thư mục 'data'.")
+        print("\n Khởi động AI thất bại. Vui lòng kiểm tra lại thư mục 'data'.")
         input("Nhấn Enter để thoát...")
         return
 
-    # 2. Bật giao diện người dùng (GUI)
     app = QApplication(sys.argv)
     window = AmazonRecommenderGUI()
     window.show()
