@@ -32,7 +32,6 @@ class AmazonRecommenderGUI(QWidget):
         main_layout.setSpacing(20)
         main_layout.setContentsMargins(30, 30, 30, 30)
 
-        # --- KHU VỰC NHẬP LIỆU ---
         input_layout = QHBoxLayout()
 
         user_layout = QVBoxLayout()
@@ -51,13 +50,11 @@ class AmazonRecommenderGUI(QWidget):
 
         main_layout.addLayout(input_layout)
 
-        # --- NÚT BẤM ---
         self.recommend_btn = QPushButton("Phân Tích & Gợi Ý")
         self.recommend_btn.setCursor(Qt.PointingHandCursor)
         self.recommend_btn.clicked.connect(self.on_recommend)
         main_layout.addWidget(self.recommend_btn)
 
-        # --- KHU VỰC KẾT QUẢ ---
         main_layout.addWidget(QLabel("Kết quả đề xuất:"))
         self.result_area = QTextEdit()
         self.result_area.setReadOnly(True)
