@@ -5,7 +5,6 @@ import gzip
 import os
 from sklearn.linear_model import LinearRegression
 
-# Biến toàn cục để lưu trữ mô hình và dữ liệu
 _DATASET = None
 _MODEL = None
 _DANH_BA_VIP = {} # Thêm một cuốn "sổ tay" cho danh bạ
@@ -20,7 +19,6 @@ def load_and_train():
 
     print(" ĐANG HUẤN LUYỆN DỮ LIỆU LỚN BẢN 2023... VUI LÒNG ĐỢI...")
 
-    # Đọc file Meta 1.2GB
     asin_to_info = {}
     try:
         with gzip.open(meta_path, 'rt', encoding='utf-8') as f:
@@ -55,8 +53,7 @@ def load_and_train():
         
         df = pd.concat(chunks, ignore_index=True)
         df['product_name'] = df['asin'].map(asin_to_info)
-        
-        # Chỉ giữ lại hàng có tên
+   
         df = df.dropna(subset=['product_name'])
         print(f"   -> SỐ DÒNG KHỚP NHAU HOÀN HẢO: {len(df)} dòng")
         
