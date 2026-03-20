@@ -44,7 +44,7 @@ Cài đặt các thư viện cần thiết thông qua pip:
 pip install pandas numpy scikit-learn PyQt5
 
 2. Chuẩn bị Dữ liệu
-Tạo thư mục `data/` ở thư mục gốc của dự án. Tải và đặt 2 file dữ liệu Amazon 2023 vào bên trong:
+Tạo thư mục `data/` ở thư mục gốc của dự án. Tải và đặt 2 file dữ liệu Amazon 2023 vào bên trong: Amazon Reviews 2023
 - Electronics.jsonl.gz
 - meta_Electronics.jsonl.gz
 
